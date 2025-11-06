@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hub de jeux — Collection Interactive</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div id="particles"></div>
+  
+  <header>
+    <h1>🎮 GameHub Arcade</h1>
+    <div id="user-info">
+      <span class="status-dot"></span>
+      <span class="status-text">Chargement...</span>
+      <div class="user-actions hidden" id="user-actions">
+        <button id="profile-btn" class="profile-btn">👤 Profil</button>
+        <button id="logout-btn" class="logout-btn">Se déconnecter</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <nav class="games-list">
+      <button data-game="guess" class="game-card">
+        <div class="game-icon">🎯</div>
+        <div class="game-info">
+          <h3>Devine le nombre</h3>
+          <p>Logique & déduction</p>
+        </div>
+      </button>
+      <button data-game="memory" class="game-card">
+        <div class="game-icon">🧠</div>
+        <div class="game-info">
+          <h3>Memory</h3>
+          <p>Mémoire & concentration</p>
+        </div>
+      </button>
+      <button data-game="tictactoe" class="game-card">
+        <div class="game-icon">⚔️</div>
+        <div class="game-info">
+          <h3>Morpion</h3>
+          <p>Stratégie & multijoueur</p>
+        </div>
+      </button>
+    </nav>
+
+    <section id="game-area">
+      <div class="welcome-screen">
+        <div class="welcome-animation">
+          <div class="floating-icon">🎲</div>
+          <h2>Bienvenue dans le Hub !</h2>
+          <p>Sélectionne un jeu dans le menu pour commencer ton aventure.</p>
+        </div>
+      </div>
+    </section>
+
+    <aside id="leaderboard">
+      <div class="leaderboard-header">
+        <h2>🏆 Classements</h2>
+        <div class="refresh-btn" id="refresh-leaderboard">↻</div>
+      </div>
+      <div id="boards">
+        <div class="loading-animation">
+          <div class="spinner"></div>
+          <span>Chargement des scores...</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <span>✨ Fait avec passion • Firebase + GitHub Pages</span>
+    </div>
+  </footer>
+
+  <!-- Firebase (compat libs for simplicity) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script src="app.js" type="module"></script>
+  <script src="games/guess.js" type="module"></script>
+  <script src="games/memory.js" type="module"></script>
+  <script src="games/tictactoe.js" type="module"></script>
+</body>
+</html>

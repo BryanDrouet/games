@@ -1,0 +1,33 @@
+# Configuration locale (ne pas commiter les secrets Firebase)
+config.js
+
+# Fichiers temporaires
+*.tmp
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend (on utilise seulement Firebase)
+server/
+node_modules/
+package-lock.json
+.env
+.env.example
+
+# Documentation de développement (garder seulement README.md)
+QUICK_START.md
+DEMARRAGE.md
+DEMARRAGE_RAPIDE.md
+FIREBASE_SETUP.md
+LISTE_FICHIERS.md
+GITHUB_PAGES_SOLUTION.md
+TEST_API.ps1
+api-client.js

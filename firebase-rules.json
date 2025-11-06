@@ -1,0 +1,123 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    
+    "users": {
+      "$uid": {
+        ".read": "auth != null",
+        ".write": "auth.uid === $uid || root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet'",
+        
+        "username": {
+          ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 20"
+        },
+        "email": {
+          ".validate": "newData.isString()"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "status": {
+          ".validate": "newData.val() === 'online' || newData.val() === 'offline'"
+        },
+        "banned": {
+          ".write": "root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet'"
+        }
+      }
+    },
+    
+    "leaderboards": {
+      "$game": {
+        ".read": true,
+        ".write": "auth != null",
+        "$entry": {
+          ".validate": "newData.hasChildren(['score', 'name', 'userId', 'ts'])"
+        }
+      }
+    },
+    
+    "friends": {
+      "$uid": {
+        ".read": "auth.uid === $uid || auth != null",
+        ".write": "auth.uid === $uid",
+        "$friendId": {
+          ".validate": "newData.hasChildren(['username', 'addedAt'])"
+        }
+      }
+    },
+    
+    "friendRequests": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth != null",
+        "$requesterId": {
+          ".validate": "newData.hasChildren(['username', 'sentAt'])"
+        }
+      }
+    },
+    
+    "blocked": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth.uid === $uid"
+      }
+    },
+    
+    "chats": {
+      "$chatId": {
+        ".read": "auth != null && (data.child('participants').child(auth.uid).exists() || root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet')",
+        ".write": "auth != null && data.child('participants').child(auth.uid).exists()",
+        
+        "messages": {
+          "$messageId": {
+            ".validate": "newData.hasChildren(['senderId', 'senderName', 'text', 'timestamp'])",
+            ".write": "!data.exists() || data.child('senderId').val() === auth.uid"
+          }
+        },
+        
+        "typing": {
+          "$uid": {
+            ".write": "auth.uid === $uid"
+          }
+        }
+      }
+    },
+    
+    "groups": {
+      "$groupId": {
+        ".read": "auth != null && (data.child('members').child(auth.uid).exists() || root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet')",
+        ".write": "auth != null && (data.child('members').child(auth.uid).exists() || data.child('creator').val() === auth.uid)",
+        
+        "messages": {
+          "$messageId": {
+            ".validate": "newData.hasChildren(['senderId', 'senderName', 'text', 'timestamp'])"
+          }
+        }
+      }
+    },
+    
+    "notifications": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth != null"
+      }
+    },
+    
+    "gameSessions": {
+      "$sessionId": {
+        ".read": "auth != null && (data.child('players').child(auth.uid).exists() || root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet')",
+        ".write": "auth != null && data.child('players').child(auth.uid).exists()"
+      }
+    },
+    
+    "reports": {
+      ".read": "root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet'",
+      ".write": "auth != null"
+    },
+    
+    "admin_logs": {
+      ".read": "root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet'",
+      ".write": "root.child('users').child(auth.uid).child('username').val() === 'Bryan_Drouet'"
+    }
+  }
+}
